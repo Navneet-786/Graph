@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printDFS(vector<int> adjList[], int n)
+{
+  stack<int> st;
+  vector<bool> visited(n, 0);
+  st.push(0);
+
+  while (!st.empty())
+  {
+    int node = st.top();
+    st.pop();
+    cout << node << " ";
+    if (visited[node])
+      continue;
+
+    visited[node] = 1;
+
+    for (int i = adjList[node].size() - 1; i >= 0; i--)
+    {
+      if (!visited[adjList[node][i]])
+      {
+        st.push(adjList[node][i]);
+      }
+    }
+  }
+}
+int main()
+{
+  int n;
+  cout << "Enter the number of Nodes" << endl;
+  cin >> n;
+
+  // create adjaceny list
+  vector<int> adjList[n];
+
+  cout << "Enter the edges" << endl;
+  for (int i = 0; i < n; i++)
+  {
+    int u, v;
+    cin >> u >> v;
+    adjList[u].push_back(v);
+    adjList[u].push_back(u);
+  }
+
+  cout << "print DFS" << endl;
+  printDFS(adjList, n);
+}
